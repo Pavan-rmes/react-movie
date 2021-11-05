@@ -1,5 +1,37 @@
 .App {
-  text-align: center;
+  font-family: sans-serif;
+  display: flex;
+  column-gap: 5px;
+  flex-wrap: wrap;
+}
+.profile {
+  height: 500px;
+  width: 400px;
+  object-fit: cover;
+}
+.movie {
+  margin-top: 8px;
+  width: 350px;
+}
+.poster {
+  height: 500px;
+  width: 350px;
+  object-fit: cover;
+}
+.movie-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.movie-name h4 {
+  margin: 4px 0px;
+}
+.like-dislike {
+  display: flex;
+  column-gap: 3px;
+}
+.like-dislike button {
+  font-size: 18px;
 }
 
 .App-logo {
