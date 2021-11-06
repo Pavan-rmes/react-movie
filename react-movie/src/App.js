@@ -90,7 +90,7 @@ function App() {
         placeholder="Enter the Movie summary"
       /><br /><br />
       <button onClick={() => addnewmovie()}>submit</button>
-      <section className="App">
+      <section className="movie-App">
       {movies.map((movie, index) => (
         <Movie
           key={index}
