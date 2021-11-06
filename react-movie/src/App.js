@@ -1,9 +1,9 @@
-import logo from './logo.svg';
-import { useState } from "react";
 import './App.css';
+import { Movie } from "./movie.js";
+import { useState } from "react";
 
 function App() {
-  const movies = [
+  const [movies, setMovies] = useState([
     {
       movieName: "The Avegers",
       movieImg:
@@ -52,45 +52,87 @@ function App() {
       movieStory:
         "James Halliday designs a virtual reality and hides the keys to his fortune in it for a worthy player to find after his death. Wade, a teenager, sets out on a quest to find the keys and the fortune."
     }
-  ];
+  ]);
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState("");
+  const [movieImg, setMovieImg] = useState("");
+  const [movieStory, setMovieStory] = useState("");
+  function addnewmovie() {
+    setMovies([
+      ...movies,
+      { movieName: name, movieRating: rating, movieImg, movieStory }
+    ]);
+    setName("");
+    setRating("");
+    setMovieImg("");
+    setMovieStory("");
+  }
   return (
-    <div className="App">
-      {movies.map((movie) => (
+    <div >
+      <input
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        placeholder="Enter the Movie Name"
+      /><br /><br />
+      <input
+        value={rating}
+        onChange={(event) => setRating(event.target.value)}
+        placeholder="Enter the Movie Rating"
+      /><br /><br />
+      <input
+        value={movieImg}
+        onChange={(event) => setMovieImg(event.target.value)}
+        placeholder="Enter the Movie Img url"
+      /><br /><br />
+      <input
+        value={movieStory}
+        onChange={(event) => setMovieStory(event.target.value)}
+        placeholder="Enter the Movie summary"
+      /><br /><br />
+      <button onClick={() => addnewmovie()}>submit</button>
+      <section className="App">
+      {movies.map((movie, index) => (
         <Movie
+          key={index}
           name={movie.movieName}
           rating={movie.movieRating}
           img={movie.movieImg}
           story={movie.movieStory}
         />
       ))}
+      {/* <Change /> */}
+      </section>
+    </div>
+  );
+}
+function Change() {
+  const [color, setcolor] = useState("");
+  const [boxcolors, setboxcolor] = useState(["Red", "blue", "green"]);
+  console.log(boxcolors);
+  const styles = { backgroundColor: color };
+  return (
+    <div>
+      <input
+        style={styles}
+        onChange={(event) => setcolor(event.target.value)}
+        placeholder="Enter the color"
+      />
+      <button onClick={() => setboxcolor([...boxcolors, color])}>Click</button>
+      {boxcolors.map((boxcolor, index) => (
+        <ColorBox key={index} boxcolor={boxcolor} />
+      ))}
     </div>
   );
 }
 
-
-function Movie({ name, rating, img, story }) {
-  return (
-    <div className="movie">
-      <img className="poster" src={img} alt="#" />
-      <div className="movie-name">
-        <h4>{name}</h4>
-        <h4>⭐ {rating}</h4>
-      </div>
-      <p className="movie-story">{story}</p>
-      <Counter />
-    </div>
-  );
-}
-
-function Counter() {
-  const [like, setlike] = useState(0);
-  const [dislike, setdislike] = useState(0);
-  return (
-    <div className="like-dislike">
-      <button onClick={() => setlike(like + 1)}>👍 {like}</button>
-      <button onClick={() => setdislike(dislike + 1)}>👎 {dislike}</button>
-    </div>
-  );
+function ColorBox({ boxcolor }) {
+  const styles = {
+    backgroundColor: boxcolor,
+    width: "200px",
+    height: "30px",
+    margin: "10px 0px"
+  };
+  return <div style={styles}></div>;
 }
 
 export default App;
