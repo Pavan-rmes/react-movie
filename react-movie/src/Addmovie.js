@@ -9,8 +9,6 @@ export function Addmovie({ movies, setMovies }) {
   const [movieImg, setMovieImg] = useState("");
   const [movieStory, setMovieStory] = useState("");
   const history = useHistory();
-  console.log(movies);
-  console.log(setMovies);
   function addnew() {
     setMovies([...movies, { name, rating, movieImg, movieStory }]);
   }

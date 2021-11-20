@@ -1,38 +1,25 @@
 import './App.css';
 import { Movie } from "./movie.js";
-import { useState , useHistory } from "react";
+import { useState } from "react";
+import { useHistory} from "react-router";
 import { Switch, Route, Link } from "react-router-dom";
 import { Change } from './Change';
 import {initialmovies} from "./InitialMovies" 
 import { Addmovie } from './Addmovie';
 import { Trailer } from './Trailer';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { ButtonAppBar } from './ButtonAppBar';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+import {Edit} from './Edit'
 
 
 function App() {
   const [movies, setMovies] = useState(initialmovies);
+  const history = useHistory()
   return (
     <div >
       <ButtonAppBar />
-      <ul>
-        <li>
-          <Link to="/movies/add">Add-movie</Link>
-        </li>
-        <li>
-          <Link to="/movies">Movies</Link>
-        </li>
-        <li>
-          <Link to="/color">Color-game</Link>
-        </li>
-      </ul>
-
+      <br />
       <hr />
 
       {/*
@@ -43,11 +30,15 @@ function App() {
           of them to render at a time
         */}
       <Switch>
+        <Route exact path ="/">
+          <h1>Welcome Marvel Fans</h1>
+          <img style={{position:"absolute",width:"99%",height:"95%",objectFit:"cover"}}  src="https://static.parade.com/wp-content/uploads/2020/03/avengers-marvel.jpg" />
+        </Route>
         <Route path ="/movies/add">
           <Addmovie movies={movies} setMovies={setMovies} />
         </Route>
         <Route path ="/movies/edit/:id">
-          <Edit />
+          <Edit movies={movies} setMovies={setMovies} />
         </Route>
         
         <Route path="/movies/:id">
@@ -57,7 +48,8 @@ function App() {
         {/* Each route is case, eg. - case '/about': */}
         <Route path="/movies">
           {/* Matcht url display the below component */}
-           
+          <Button onClick={()=>history.push("/movies/add")} on style={{float:"right"}} variant="contained" startIcon={<AddIcon />}>ADD</Button>
+          <br /><br /><br />
             <section className="movie-App">
             {movies.map((movie, index) => (
               <Movie
@@ -87,92 +79,3 @@ function App() {
   );
 }
 export default App;
-
-
-
-function Edit(){
-  return(
-    <div>Hello</div>
-  )
-}
-
-
-function ButtonAppBar() {
-  const[click,setclick] = useState(false)
-  // const history = useHistory();
-
-  let styleMenu 
-  let styleClose
-  let stylesHome
-  let styles
-
-  function menuClick(){
-    setclick(!click)
-  }
-  if (click === true){
-    styleMenu ={display:"none"}
-    styleClose = {display:"block"}
-    stylesHome ={display:"none"}
-    styles = {display:"flex"} 
-  }
-
-  function closeClick(){
-    setclick(!click)
-  }
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-      <div className ="menu-close" style ={styleClose} >
-        <CloseIcon onClick ={()=>closeClick()} />
-      </div>
-        <Toolbar>
-          <div className="appdrawer">
-            <IconButton
-              onClick={()=>menuClick()}
-              style={styleMenu}
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton >
-          </div>
-          <div className="appbar-hidden" style={stylesHome} >
-            <Button color="inherit" >
-              <Typography variant="h6" >
-                Home
-              </Typography>
-            </Button>
-          </div>
-          <div style={styles} className="appbar" >
-            <Button color="inherit" >
-              <Typography variant="h6" >
-                Home
-              </Typography>
-            </Button>
-            <Button color="inherit" >
-              <Typography variant="h6" >
-                MOVIES
-              </Typography>
-            </Button>
-            <Button color="inherit" >
-              <Typography variant="h6" >
-                COLOR GAME
-              </Typography>
-            </Button>
-            <Button className= "login" color="inherit" >
-              <Typography variant="h6" >
-                Login
-              </Typography>
-            </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <div style={{paddingLeft:"4%"}}>
-        
-      </div>
-    </Box>
-  );
-}

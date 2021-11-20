@@ -12,7 +12,6 @@ export function Movie({ name, rating, img, story ,index,movies,setMovies }) {
   const [show, setshow] = useState("true");
   const styles = { display: show ? "block" : "none" };
   const history = useHistory();
-
   function deleteMovie(index){
     const updatedMovies = movies.filter((mv,id)=>id !== index)
     setMovies(updatedMovies)
