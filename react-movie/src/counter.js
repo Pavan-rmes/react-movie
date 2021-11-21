@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
@@ -6,6 +6,15 @@ import MailIcon from '@mui/icons-material/Mail';
 export function Counter() {
   const [like, setlike] = useState(0);
   const [dislike, setdislike] = useState(0);
+
+  useEffect(()=>{
+    console.log("Print when there is no depency array")
+  },[dislike])
+
+  useEffect(()=>{
+    console.log("Print when there is empty depency array")
+  },[like])
+
   return (
     <div className="like-dislike">
       <IconButton 

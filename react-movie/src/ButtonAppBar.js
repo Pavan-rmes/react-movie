@@ -81,6 +81,11 @@ export function ButtonAppBar({dark,setdark}) {
                 {dark===true?"Light":"Dark"} Mode
               </Typography>
             </Button>
+            <Button onClick={()=>history.push("/basicform")} color="inherit">
+              <Typography variant="h6">
+                Basic Form
+              </Typography>
+            </Button>
           </div>
         </Toolbar>
       </AppBar>   

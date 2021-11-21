@@ -13,6 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import {Edit} from './Edit'
 import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Basicform } from './Basicform';
 
 
 function App() {
@@ -89,6 +90,9 @@ function App() {
         <Route path ="/color">
           <Change />
         </Route>
+        <Route path ="/basicform">
+          <Basicform />
+        </Route>
         
       </Switch>
     </div>
@@ -98,3 +102,5 @@ function App() {
   );
 }
 export default App;
+
+
