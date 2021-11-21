@@ -1,6 +1,6 @@
 import './App.css';
 import { Movie } from "./movie.js";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useHistory} from "react-router";
 import { Switch, Route, Link } from "react-router-dom";
 import { Change } from './Change';
@@ -11,14 +11,34 @@ import { ButtonAppBar } from './ButtonAppBar';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import {Edit} from './Edit'
+import Paper from '@mui/material/Paper';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 function App() {
-  const [movies, setMovies] = useState(initialmovies);
+  const [movies, setMovies] = useState([]);
+  const [dark,setdark] = useState(false)
   const history = useHistory()
+  const darkstate = dark===true?"dark":"light"
+
+  const theme = createTheme({
+    palette: {
+      mode: darkstate,
+    },
+  });
+
+  useEffect(()=>{
+    fetch("https://61988db3164fa60017c230f3.mockapi.io/movies")
+    .then((data)=>data.json())
+    .then((mv)=>setMovies(mv))
+  },[])
+
   return (
+    
+    <ThemeProvider theme={theme}>
+      <Paper elevation={5} >
     <div >
-      <ButtonAppBar />
+      <ButtonAppBar dark={dark} setdark={setdark} />
       <br />
       <hr />
 
@@ -71,11 +91,10 @@ function App() {
         </Route>
         
       </Switch>
-
-
-
-      
     </div>
+      </Paper>
+    </ThemeProvider>
+    
   );
 }
 export default App;

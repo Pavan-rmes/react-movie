@@ -8,8 +8,10 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness2Icon from '@mui/icons-material/Brightness2';
 
-export function ButtonAppBar() {
+export function ButtonAppBar({dark,setdark}) {
   const [click, setclick] = useState(false);
   const history = useHistory();
   let styleMenu;
@@ -74,12 +76,14 @@ export function ButtonAppBar() {
                 COLOR GAME
               </Typography>
             </Button>
+            <Button startIcon={dark===true ? <Brightness7Icon /> : <Brightness2Icon />} onClick={()=>setdark(!dark)} style={{marginLeft:"auto"}} color="inherit">
+              <Typography variant="h6">
+                {dark===true?"Light":"Dark"} Mode
+              </Typography>
+            </Button>
           </div>
         </Toolbar>
-      </AppBar>
-      <div style={{ paddingLeft: "4%" }}>
-
-      </div>
+      </AppBar>   
     </Box>
   );
 }
