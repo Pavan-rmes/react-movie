@@ -4,7 +4,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 export function Trailer({ movies }) {
   const { id } = useParams();
-  const movie = movies[id];
+  const movie = movies.filter(mv=>(mv._id === id));
   const history = useHistory();
   console.log(movies, id, movie);
   return (

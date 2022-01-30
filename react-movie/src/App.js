@@ -14,6 +14,7 @@ import {Edit} from './Edit'
 import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Basicform } from './Basicform';
+import { API } from './utility';
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
   });
 
   useEffect(()=>{
-    fetch("https://61988db3164fa60017c230f3.mockapi.io/movies")
+    fetch(`${API}/movies`)
     .then((data)=>data.json())
     .then((mv)=>setMovies(mv))
   },[])
@@ -74,11 +75,11 @@ function App() {
             <section className="movie-App">
             {movies.map((movie, index) => (
               <Movie
-                index={index}
-                name={movie.movieName}
-                rating={movie.movieRating}
-                img={movie.movieImg}
-                story={movie.movieStory}
+                index={movie._id}
+                name={movie.name}
+                rating={movie.rating}
+                img={movie.poster}
+                story={movie.summary}
                 movies={movies}
                 setMovies={setMovies}
               />

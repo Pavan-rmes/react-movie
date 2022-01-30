@@ -2,21 +2,26 @@ import { useState } from "react";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useHistory,useParams } from "react-router-dom";
+import {axios} from "axios"
+import { API } from "./utility";
+import { Movie } from "./movie";
 
 export function Edit({ movies, setMovies }) {
     const { id } = useParams();
-    const movie = movies[id]
-    console.log(movie)
-    const [name, setName] = useState(movie.movieName);
-    const [rating, setRating] = useState(movie.movieRating);
-    const [movieImg, setMovieImg] = useState(movie.movieImg);
-    const [movieStory, setMovieStory] = useState(movie.movieStory);
+    const movie = movies.filter(mv=>(mv._id === id))[0];
+    console.log(movie.name)
+    const [name, setName] = useState(movie.name);
+    const [rating, setRating] = useState(movie.rating);
+    const [movieImg, setMovieImg] = useState(movie.poster);
+    const [movieStory, setMovieStory] = useState(movie.summary);
+    console.log(name,rating,movieImg,movieStory)
     const history = useHistory();
-    console.log(name)
     function edit() {
-        const updatedMovieList = [...movies]
-        updatedMovieList[id] ={movieName:name,movieRating:rating,movieImg:movieImg,movieStory:movieStory}
-        setMovies(updatedMovieList);
+      const editedMovie = {name,rating,poster:movieImg,summary:movieStory}
+      fetch(`${API}/movies/${id}`,{
+        method:"PUT",
+        body:editedMovie
+      })
     }
   return (
     <div className="addmovie">
